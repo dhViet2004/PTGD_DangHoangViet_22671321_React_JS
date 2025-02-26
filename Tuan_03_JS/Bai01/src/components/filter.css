@@ -1,0 +1,26 @@
+.container{
+    width: 500px;
+    height: 800px;
+    border: 1px solid rgb(180, 180, 180);
+}
+#filter {
+    border-radius: 10px;
+}
+#top {
+    height: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 30px;
+    justify-content: space-between;
+}
+#top img {
+    width: 10%;
+    padding: 5px;
+    float: left;
+}
+#top h3 {
+    padding-top: 12px;
+}
+#ty{
+    margin-right: 350px;
+}
