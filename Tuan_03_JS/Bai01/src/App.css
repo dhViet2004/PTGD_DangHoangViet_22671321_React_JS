@@ -1,6 +1,10 @@
 .filter {
-    width: 200px;
+    width: 30%;
     height: auto;
-    left: 0;
-    position: absolute;
+    float: left;
+    margin-left: 50px;
+}
+.center{
+    float: left;
+    width: 60%;
 }

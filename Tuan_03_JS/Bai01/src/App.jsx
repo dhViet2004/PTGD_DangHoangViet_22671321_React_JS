@@ -1,5 +1,6 @@
 import Header from './components/header';
 import Filter from './components/filters';
+import Center from './components/center';
 import './App.css'
 
 function App() {
@@ -7,8 +8,7 @@ function App() {
     <div className="app-container">
       <Header />
       <Filter></Filter>
-
-      
+      <Center></Center>
     </div>
   );
 }
