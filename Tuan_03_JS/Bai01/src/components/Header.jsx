@@ -2,13 +2,13 @@ import './Header.css'
 import chefifyImage from '../images/chefify.png';
 import checkPhoto from '../images/check.png'
 function Header() {
-    return ( 
-        <>
-            <div id = 'header' className ="flex-container">
+    return (
+        <div className='header'>
+            <div id='header' className="flex-container">
                 <div><img src={chefifyImage} alt="logo" /></div>
                 <div>
-                    <input className='myinput'/>
-                   
+                    <input className='myinput' />
+
                 </div>
                 <div className='mynav'>
                     <nav>
@@ -21,17 +21,17 @@ function Header() {
                         </ul>
                     </nav>
                 </div>
-                
+
                 <div className='profile'>
-                <div className='photo'>
-                <img src={checkPhoto} alt="check" />
-                    <p> Your Recipe Box</p>
-                </div>
+                    <div className='photo'>
+                        <img src={checkPhoto} alt="check" />
+                        <p> Your Recipe Box</p>
+                    </div>
                     <img src="https://i.imgur.com/A1OshFQ.jpg" alt="" /></div>
 
             </div>
-        </>
-     );
+        </div>
+    );
 }
 
 export default Header;
