@@ -120,13 +120,15 @@
     accent-color: #ff69b4;
 }
 #footer{
-    padding: 20px;
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-items: center;
     border-top: 1px solid  rgb(180, 180, 180);
 
 }
 #footer button {
+    margin: 20px auto;
     padding: 10px 100px;
     font-weight: bold;
     border-radius: 10px;
