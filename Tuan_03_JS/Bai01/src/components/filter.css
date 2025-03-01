@@ -89,6 +89,7 @@
 #minutes{
     margin-top: 10px;
     display: flex;
+    justify-content: space-evenly;
 }
 #Rating{
     padding: 20px 10px;
