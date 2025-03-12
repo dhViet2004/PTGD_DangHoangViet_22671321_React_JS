@@ -1,0 +1,8 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    grid-template-rows: repeat(2, auto); /* 2 dòng */
+    gap: 16px; /* Khoảng cách giữa các item */
+    padding: 16px;
+}
+
