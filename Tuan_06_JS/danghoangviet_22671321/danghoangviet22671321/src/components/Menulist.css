@@ -1,0 +1,30 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .dish {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .dish img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .order-list {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+
+  }
+  
+  .order-item {
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+  }

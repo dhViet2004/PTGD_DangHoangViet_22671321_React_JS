@@ -1,0 +1,65 @@
+[
+    {
+      "id": 1,
+      "name": "Pho bo",
+      "price": "100000",
+      "description": "Chua chua cay cay",
+      "image": "src/img/hamperger.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Com chien",
+      "price": "15000",
+      "description": "Ngon lam ban oi",
+      "image": "src/img/hamperger.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Lau ga",
+      "price": "20000",
+      "description": "ngon bo re",
+      "image": "src/img/hamperger.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Pho bo",
+        "price": "100000",
+        "description": "Chua chua cay cay",
+        "image": "src/img/hamperger.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Com chien",
+        "price": "15000",
+        "description": "Ngon lam ban oi",
+        "image": "src/img/hamperger.jpg"
+      },
+      {
+        "id": 6,
+        "name": "Lau ga",
+        "price": "20000",
+        "description": "ngon bo re",
+        "image": "src/img/hamperger.jpg"
+      },
+      {
+        "id": 7,
+        "name": "Pho bo",
+        "price": "100000",
+        "description": "Chua chua cay cay",
+        "image": "src/img/hamperger.jpg"
+      },
+      {
+        "id": 8,
+        "name": "Com chien",
+        "price": "15000",
+        "description": "Ngon lam ban oi",
+        "image": "src/img/hamperger.jpg"
+      },
+      {
+        "id": 9,
+        "name": "Lau ga",
+        "price": "20000",
+        "description": "ngon bo re",
+        "image": "src/img/hamperger.jpg"
+      }  
+]

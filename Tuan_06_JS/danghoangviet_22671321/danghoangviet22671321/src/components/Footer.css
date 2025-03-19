@@ -1,0 +1,13 @@
+#footer-ct {
+    position: fixed;
+    bottom: 0;
+    width: 75%;
+    background-color: #f8f8f8;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+}
+
+#footer-ct span {
+    color: #333;
+}
