@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "name": "Phở Bò",
+        "url": "src/images/pho.jpg",
+        "gia": 350000,
+        "moTa": "Phở bò thơm ngon với nước dùng đậm đà và thịt bò mềm."
+    },
+    {
+        "id": 2,
+        "name": "Bún Chả",
+        "url": "src/images/buncha.jpg",
+        "gia": 280000,
+        "moTa": "Bún chả Hà Nội với thịt nướng thơm lừng và nước chấm đậm vị."
+    },
+    {
+        "id": 3,
+        "name": "Bánh Mì Thịt Nướng",
+        "url": "src/images/banhmi.jpg",
+        "gia": 250000,
+        "moTa": "Bánh mì giòn rụm với nhân thịt nướng và rau sống tươi ngon."
+    },
+    {
+        "id": 4,
+        "name": "Cơm Tấm Sườn",
+        "url": "src/images/comtam.jpg",
+        "gia": 300000,
+        "moTa": "Cơm tấm sườn bì chả, ăn kèm dưa chua và nước mắm chua ngọt."
+    },
+    {
+        "id": 5,
+        "name": "Gỏi Cuốn",
+        "url": "src/images/goicuon.jpg",
+        "gia": 200000,
+        "moTa": "Gỏi cuốn tươi ngon với tôm, thịt và rau sống, chấm mắm nêm đậm đà."
+    },
+    {
+        "id": 6,
+        "name": "Bún Bò Huế",
+        "url": "src/images/bunbohue.jpg",
+        "gia": 320000,
+        "moTa": "Bún bò Huế cay nồng với giò heo và chả cua đặc trưng."
+    },
+    {
+        "id": 7,
+        "name": "Cháo Lòng",
+        "url": "src/images/chaolong.jpg",
+        "gia": 250000,
+        "moTa": "Cháo lòng nóng hổi với lòng heo, dồi trường và rau thơm."
+    },
+    {
+        "id": 8,
+        "name": "Lẩu Thái Hải Sản",
+        "url": "src/images/lauthai.jpg",
+        "gia": 500000,
+        "moTa": "Lẩu Thái chua cay với tôm, mực, ngao và rau xanh tươi ngon."
+    },
+    {
+        "id": 9,
+        "name": "Hủ tíu",
+        "url": "src/images/hutiu.jpg",
+        "gia": 500000,
+        "moTa": "Hủ tíu với tôm, mực, ngao và rau xanh tươi ngon."
+    }
+]
