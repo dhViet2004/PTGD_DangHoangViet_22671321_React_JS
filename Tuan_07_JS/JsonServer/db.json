@@ -1,0 +1,108 @@
+{
+    "images": [
+      {
+        "id": 1,
+        "name": "Avatar (1).png",
+        "url": "/images/Avatar (1).png",
+        "uploadedBy": 1,
+        "createdAt": "2024-05-01T10:00:00Z"
+      },
+      {
+        "id": 2,
+        "name": "Avatar (2).png",
+        "url": "/images/Avatar (2).png",
+        "uploadedBy": 2,
+        "createdAt": "2024-05-02T11:30:00Z"
+      },
+      {
+        "id": 3,
+        "name": "Avatar (3).png",
+        "url": "/images/Avatar (3).png",
+        "uploadedBy": 1,
+        "createdAt": "2024-05-03T09:15:00Z"
+      },
+      {
+        "id": 4,
+        "name": "Bell 1.png",
+        "url": "/images/Bell 1.png",
+        "uploadedBy": 3,
+        "createdAt": "2024-05-04T14:20:00Z"
+      },
+      {
+        "id": 5,
+        "name": "Chat.png",
+        "url": "/images/Chat.png",
+        "uploadedBy": 2,
+        "createdAt": "2024-05-05T16:45:00Z"
+      },
+      {
+        "id": "Logo",
+        "name": "Logo.png",
+        "url": "/images/Logo.png",
+        "uploadedBy": 2,
+        "createdAt": "2024-05-05T16:45:00Z"
+      },
+      {
+        "id": "Squaresfour1",
+        "name": "Squaresfour1.png",
+        "url": "/images/Squaresfour1.png",
+        "uploadedBy": 2,
+        "createdAt": "2024-05-05T16:45:00Z"
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "User One",
+        "email": "user1@example.com",
+        "avatar": "/images/Avatar.png"
+      },
+      {
+        "id": 2,
+        "name": "User Two",
+        "email": "user2@example.com",
+        "avatar": "/images/Avatar (5).png"
+      },
+      {
+        "id": 3,
+        "name": "User Three",
+        "email": "user3@example.com",
+        "avatar": "/images/Avatar 313.png"
+      }
+    ],
+    "notifications": [
+      {
+        "id": 1,
+        "userId": 1,
+        "message": "You have a new message",
+        "icon": "/images/Bell 1.png",
+        "read": false,
+        "createdAt": "2024-05-06T08:00:00Z"
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "message": "Your image was liked",
+        "icon": "/images/Question 1.png",
+        "read": true,
+        "createdAt": "2024-05-06T09:30:00Z"
+      }
+    ],
+    "actions": [
+      {
+        "id": 1,
+        "name": "Download",
+        "icon": "/images/Download.png"
+      },
+      {
+        "id": 2,
+        "name": "Search",
+        "icon": "/images/Search.png"
+      },
+      {
+        "id": 3,
+        "name": "Create",
+        "icon": "/images/create.png"
+      }
+    ]
+  }
