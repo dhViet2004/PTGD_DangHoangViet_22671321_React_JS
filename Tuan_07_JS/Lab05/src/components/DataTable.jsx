@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useData } from '../components/DataContext';
-
+import Modal from './Modal';
 const DataTable = ({
   itemsPerPage = 5,
   avatarField = 'avatar',
@@ -10,16 +10,16 @@ const DataTable = ({
   excludeFields = ['avatar'],
   nameField = 'name'
 }) => {
-  const { tableData, tableTitle, fetchStats, activeFilter } = useData(); 
+  const { tableData, tableTitle, updateData, fetchStats, activeFilter } = useData(); // Thêm activeFilter
   const [currentPage, setCurrentPage] = useState(1);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   useEffect(() => {
     if (!tableData || tableData.length === 0) {
       fetchStats();
     }
   }, [tableData, fetchStats]);
 
- 
   const currentItems = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
@@ -29,12 +29,10 @@ const DataTable = ({
     return tableData.slice(indexOfFirstItem, indexOfLastItem);
   }, [tableData, currentPage, itemsPerPage]);
 
-  
   const totalPages = useMemo(() => {
     return tableData && tableData.length > 0 ? Math.ceil(tableData.length / itemsPerPage) : 0;
   }, [tableData, itemsPerPage]);
 
- 
   if (!tableData || tableData.length === 0) {
     return <div className="p-4">No data available</div>;
   }
@@ -132,6 +130,53 @@ const DataTable = ({
       .replace(/^./, str => str.toUpperCase())
       .trim();
   };
+
+  const handleEditClick = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleChange = (e) => {
+    setSelectedItem({
+      ...selectedItem,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSave = async (updatedUser) => {
+    try {
+      if (!updatedUser || !updatedUser.id) {
+        throw new Error('No user ID provided for update');
+      }
+
+      const payload = { ...updatedUser };
+      if (payload.avatar && payload.avatar.startsWith('http://localhost:3001')) {
+        payload.avatar = payload.avatar.replace('http://localhost:3001', '');
+      }
+      console.log('Payload gửi đi:', payload);
+
+      const response = await fetch(`http://localhost:3001/customers/${updatedUser.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to update user: ${errorText}`);
+      }
+
+      const updatedData = await response.json();
+      updateData(tableData.map(item => item.id === updatedData.id ? updatedData : item));
+      setIsModalOpen(false);
+      setSelectedItem(null);
+    } catch (error) {
+      console.error('Error saving user:', error);
+      alert('Failed to save user. Please try again.');
+    }
+  };
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex justify-between items-center mb-6">
@@ -172,7 +217,7 @@ const DataTable = ({
                   {formatColumnName(column)}
                 </th>
               ))}
-              {/* Chỉ hiển thị cột Actions khi activeFilter là 'customers' */}
+            
               {activeFilter === 'customers' && (
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -193,10 +238,11 @@ const DataTable = ({
                     </div>
                   </td>
                 ))}
-                {/* Chỉ hiển thị nút Edit khi activeFilter là 'customers' */}
+             
                 {activeFilter === 'customers' && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
+                      onClick={() => handleEditClick(item)}
                       className="cursor-pointer"
                     >
                       <img src="http://localhost:3001/images/create.png" alt="Edit" />
@@ -242,6 +288,15 @@ const DataTable = ({
             </button>
           </div>
         </div>
+      )}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSave}
+          user={selectedItem}
+          onChange={handleChange}
+        />
       )}
     </div>
   );
