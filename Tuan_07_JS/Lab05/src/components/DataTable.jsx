@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useData } from '../components/DataContext';
-import Modal from './Modal';
+import Modal from '../components/Modal'
 const DataTable = ({
   itemsPerPage = 5,
   avatarField = 'avatar',
@@ -14,6 +14,8 @@ const DataTable = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [newCustomer, setNewCustomer] = useState({});
   useEffect(() => {
     if (!tableData || tableData.length === 0) {
       fetchStats();
@@ -136,6 +138,10 @@ const DataTable = ({
     setIsModalOpen(true);
   };
 
+  const handleExport = () => {
+    console.log("Export functionality to be implemented");
+  };
+
   const handleChange = (e) => {
     setSelectedItem({
       ...selectedItem,
@@ -177,12 +183,54 @@ const DataTable = ({
       alert('Failed to save user. Please try again.');
     }
   };
+  const handleImport = () => {
+    const emptyCustomer = Object.keys(tableData[0]).reduce((acc, key) => {
+      if (key !== 'id') { 
+        acc[key] = '';
+      }
+      return acc;
+    }, {});
+    setNewCustomer(emptyCustomer);
+    setIsImportModalOpen(true);
+  };
+
+  const handleImportChange = (e) => {
+    setNewCustomer({
+      ...newCustomer,
+      [e.target.name]: e.target.value
+    });
+  };
+  const handleImportSave = async (newUser) => {
+    try {
+      const response = await fetch('http://localhost:3001/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Không thể tạo khách hàng mới: ${errorText}`);
+      }
+
+      const createdUser = await response.json();
+      updateData([...tableData, createdUser]); 
+      setIsImportModalOpen(false); 
+      setNewCustomer({}); 
+    } catch (error) {
+      console.error('Lỗi khi nhập khách hàng:', error);
+      alert('Không thể nhập khách hàng. Vui lòng thử lại.');
+    }
+  };
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">{tableTitle}</h1>
         <div className="flex space-x-4">
           <button
+            onClick={handleImport}
             className="border border-pink-400 text-pink-400 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-pink-100 cursor-pointer transition-colors duration-200"
           >
             <img
@@ -193,6 +241,7 @@ const DataTable = ({
             <span>Import</span>
           </button>
           <button
+            onClick={handleExport}
             className="border border-pink-400 text-pink-400 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-pink-100 cursor-pointer transition-colors duration-200"
           >
             <img
@@ -217,7 +266,6 @@ const DataTable = ({
                   {formatColumnName(column)}
                 </th>
               ))}
-            
               {activeFilter === 'customers' && (
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -238,7 +286,6 @@ const DataTable = ({
                     </div>
                   </td>
                 ))}
-             
                 {activeFilter === 'customers' && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
@@ -296,6 +343,16 @@ const DataTable = ({
           onSave={handleSave}
           user={selectedItem}
           onChange={handleChange}
+        />
+      )}
+      {isImportModalOpen && (
+        <Modal 
+          isOpen={isImportModalOpen} 
+          onClose={() => setIsImportModalOpen(false)} 
+          onSave={handleImportSave} 
+          user={newCustomer} 
+          onChange={handleImportChange}
+          title="Thêm khách hàng mới" 
         />
       )}
     </div>

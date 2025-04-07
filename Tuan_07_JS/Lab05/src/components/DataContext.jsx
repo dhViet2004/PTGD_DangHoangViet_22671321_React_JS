@@ -1,9 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-
-// 1. Tạo Context với giá trị mặc định
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 const DataContext = createContext();
-
-// 2. Tạo Provider component
 export const DataProvider = ({ children }) => {
   const [stats, setStats] = useState({
     turnover: { current: 0, change: 0, rawData: [] },
@@ -17,7 +13,7 @@ export const DataProvider = ({ children }) => {
   const [tableData, setTableData] = useState([]);
   const [tableTitle, setTableTitle] = useState("Detailed Report");
 
-  // Hàm fetch dữ liệu
+
   const fetchStats = async () => {
     try {
       const [turnoverRes, profitRes, customersRes] = await Promise.all([
@@ -36,14 +32,9 @@ export const DataProvider = ({ children }) => {
         customersRes.json()
       ]);
   
-      console.log('Fetched data:', { turnoverData, profitData, customersData }); // Log dữ liệu nhận được
-  
       const latestTurnover = turnoverData[turnoverData.length - 1] || { amount: 0, change: 0 };
       const latestProfit = profitData[profitData.length - 1] || { amount: 0, margin: 0 };
       const prevProfit = profitData[profitData.length - 2] || latestProfit;
-  
-      const currentNewCustomers = customersData.filter(c => c.status === "New").length;
-      const customerChange = (currentNewCustomers / customersData.length * 100).toFixed(2) || 0;
   
       setStats({
         turnover: {
@@ -57,8 +48,8 @@ export const DataProvider = ({ children }) => {
           rawData: profitData
         },
         newCustomers: {
-          current: currentNewCustomers,
-          change: customerChange,
+          current: 0, 
+          change: 0,  
           rawData: customersData
         },
         loading: false,
@@ -75,8 +66,28 @@ export const DataProvider = ({ children }) => {
       }));
     }
   };
+  const newCustomersStats = useMemo(() => {
+    const customersData = stats.newCustomers.rawData;
+    const currentNewCustomers = customersData.filter(c => c.status === "New").length;
+    const customerChange = customersData.length > 0 
+      ? (currentNewCustomers / customersData.length * 100).toFixed(2) 
+      : 0;
+    return {
+      current: currentNewCustomers,
+      change: customerChange
+    };
+  }, [stats.newCustomers.rawData]); 
+  useEffect(() => {
+    setStats(prev => ({
+      ...prev,
+      newCustomers: {
+        ...prev.newCustomers,
+        current: newCustomersStats.current,
+        change: newCustomersStats.change
+      }
+    }));
+  }, [newCustomersStats]);
 
-  // Hàm định dạng tiền tệ
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -85,8 +96,6 @@ export const DataProvider = ({ children }) => {
       maximumFractionDigits: 0
     }).format(value);
   };
-
-  // Hàm xử lý click filter
   const handleButtonClick = (filterType) => {
     setActiveFilter(filterType);
     switch (filterType) {
@@ -107,10 +116,8 @@ export const DataProvider = ({ children }) => {
         setTableTitle("Detailed Report");
     }
   };
-
-  // Hàm cập nhật dữ liệu
   const updateData = (newData) => {
-    setTableData(newData); // Cập nhật tableData trực tiếp
+    setTableData(newData); 
     if (activeFilter === 'turnover') {
       setStats(prev => ({
         ...prev,
@@ -128,8 +135,6 @@ export const DataProvider = ({ children }) => {
       }));
     }
   };
-
-  // Fetch dữ liệu khi component mount
   useEffect(() => {
     fetchStats();
   }, []);
@@ -152,7 +157,6 @@ export const DataProvider = ({ children }) => {
   );
 };
 
-// 3. Tạo custom hook để sử dụng context
 export const useData = () => {
   const context = useContext(DataContext);
   if (!context) {
@@ -161,5 +165,4 @@ export const useData = () => {
   return context;
 };
 
-// 4. Export Context
 export default DataContext;

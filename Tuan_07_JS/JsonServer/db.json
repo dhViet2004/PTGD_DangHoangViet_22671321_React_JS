@@ -279,7 +279,7 @@
       "id": 1,
       "name": "Hoàng việt",
       "company": "VinaGame",
-      "orderValue": "500",
+      "orderValue": "600",
       "orderDate": "2023-07-24",
       "status": "In-progress",
       "avatar": "/images/Avatar.png"
@@ -463,6 +463,15 @@
       "status": "new",
       "avatar": "/images/Avatar.png",
       "id": 21
+    },
+    {
+      "name": "Phạm Cồng Thành",
+      "company": "Galaxy",
+      "orderValue": "500",
+      "orderDate": "2024-07-31",
+      "status": "New",
+      "avatar": "/images/Avatar.png",
+      "id": 22
     }
   ]
 }

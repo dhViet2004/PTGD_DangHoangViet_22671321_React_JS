@@ -25,7 +25,7 @@ const Overview = () => {
     } else if (path === '/customers') {
       handleButtonClick('customers');
     } else {
-      handleButtonClick('customers'); // Mặc định
+      handleButtonClick('customers');
     }
   }, [location.pathname, handleButtonClick]);
 
