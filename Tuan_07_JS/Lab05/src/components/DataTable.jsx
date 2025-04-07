@@ -10,9 +10,9 @@ const DataTable = ({
   excludeFields = ['avatar'],
   nameField = 'name'
 }) => {
-  const { tableData, tableTitle, fetchStats, activeFilter } = useData(); // Thêm activeFilter
+  const { tableData, tableTitle, fetchStats, activeFilter } = useData(); 
   const [currentPage, setCurrentPage] = useState(1);
-  // Fetch dữ liệu nếu tableData rỗng
+  
   useEffect(() => {
     if (!tableData || tableData.length === 0) {
       fetchStats();

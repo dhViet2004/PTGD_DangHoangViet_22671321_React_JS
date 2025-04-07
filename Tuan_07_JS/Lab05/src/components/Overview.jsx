@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import DataTable from './DataTable';
 import { useData } from '../components/DataContext';
 
@@ -25,7 +25,7 @@ const Overview = () => {
     } else if (path === '/customers') {
       handleButtonClick('customers');
     } else {
-      handleButtonClick('customers'); // Default
+      handleButtonClick('customers'); // Mặc định
     }
   }, [location.pathname, handleButtonClick]);
 
@@ -49,11 +49,14 @@ const Overview = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-        {/* Turnover Card */}
-        <div
-          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
-            activeFilter === 'turnover' ? 'bg-pink-200' : 'bg-pink-100'
-          }`}
+      
+        <NavLink
+          to="/turnover"
+          className={({ isActive }) =>
+            `rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+              isActive ? 'bg-pink-200' : 'bg-pink-100'
+            }`
+          }
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Turnover</h3>
@@ -69,13 +72,15 @@ const Overview = () => {
               className="w-10 h-10 hover:opacity-80 transition-opacity"
             />
           </div>
-        </div>
+        </NavLink>
 
-        {/* Profit Card */}
-        <div
-          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
-            activeFilter === 'profit' ? 'bg-blue-200' : 'bg-blue-100'
-          }`}
+        <NavLink
+          to="/profit"
+          className={({ isActive }) =>
+            `rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+              isActive ? 'bg-blue-200' : 'bg-blue-100'
+            }`
+          }
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Profit</h3>
@@ -91,13 +96,14 @@ const Overview = () => {
               className="w-10 h-10"
             />
           </div>
-        </div>
-
-        {/* Customers Card */}
-        <div
-          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
-            activeFilter === 'customers' ? 'bg-blue-100' : 'bg-blue-50'
-          }`}
+        </NavLink>
+        <NavLink
+          to="/customers"
+          className={({ isActive }) =>
+            `rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+              isActive ? 'bg-blue-100' : 'bg-blue-50'
+            }`
+          }
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">New Customers</h3>
@@ -111,7 +117,7 @@ const Overview = () => {
               className="w-10 h-10"
             />
           </div>
-        </div>
+        </NavLink>
       </div>
 
       <div className="mt-8">
