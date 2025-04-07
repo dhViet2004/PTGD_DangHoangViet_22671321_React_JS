@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import DataTable from './DataTable';
 import { useData } from '../components/DataContext';
 
 const Overview = () => {
   const {
     stats,
+    activeFilter,
+    tableData,
+    tableTitle,
     formatCurrency,
     handleButtonClick,
+    updateData,
   } = useData();
 
   const location = useLocation();
@@ -26,6 +31,11 @@ const Overview = () => {
 
   if (stats.loading) return <div className="p-4">Loading...</div>;
   if (stats.error) return <div className="p-4 text-red-500">{stats.error}</div>;
+
+  const handleUpdateExample = () => {
+    const updatedData = [...tableData];
+    updateData(updatedData);
+  };
 
   return (
     <div className="p-4 bg-white">
@@ -61,7 +71,9 @@ const Overview = () => {
 
         {/* Profit Card */}
         <div
-          className="rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 bg-blue-100"
+          className="rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration- 
+   
+200 bg-blue-100"
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Profit</h3>
@@ -97,6 +109,24 @@ const Overview = () => {
           </div>
         </div>
       </div>
+
+      <div className="mt-8">
+        <DataTable
+          data={tableData}
+          title={tableTitle}
+          avatarField="avatar"
+          nameField="name"
+          currencyFields={
+            activeFilter === 'turnover' || activeFilter === 'profit'
+              ? ['amount', 'current']
+              : ['orderValue']
+          }
+          dateFields={['date', 'orderDate']}
+          statusField={'status'}
+          excludeFields={['avatar']}
+          onUpdate={handleUpdateExample}
+        />
+      </div>
     </div>
   );
 };
@@ -113,7 +143,7 @@ const PercentageChange = ({ change }) => (
         >
           <path
             fillRule="evenodd"
-            d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01- buffs414 0z"
+            d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z"
             clipRule="evenodd"
           />
         </svg>
