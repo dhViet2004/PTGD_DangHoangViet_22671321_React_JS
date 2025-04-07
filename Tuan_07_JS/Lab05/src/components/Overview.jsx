@@ -25,7 +25,7 @@ const Overview = () => {
     } else if (path === '/customers') {
       handleButtonClick('customers');
     } else {
-      handleButtonClick('customers'); // Mặc định
+      handleButtonClick('customers'); // Default
     }
   }, [location.pathname, handleButtonClick]);
 
@@ -51,7 +51,9 @@ const Overview = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
         {/* Turnover Card */}
         <div
-          className="rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 bg-pink-100"
+          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+            activeFilter === 'turnover' ? 'bg-pink-200' : 'bg-pink-100'
+          }`}
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Turnover</h3>
@@ -71,9 +73,9 @@ const Overview = () => {
 
         {/* Profit Card */}
         <div
-          className="rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration- 
-   
-200 bg-blue-100"
+          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+            activeFilter === 'profit' ? 'bg-blue-200' : 'bg-blue-100'
+          }`}
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">Profit</h3>
@@ -93,7 +95,9 @@ const Overview = () => {
 
         {/* Customers Card */}
         <div
-          className="rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 bg-blue-50"
+          className={`rounded-lg shadow p-6 grid grid-cols-2 transition-colors duration-200 ${
+            activeFilter === 'customers' ? 'bg-blue-100' : 'bg-blue-50'
+          }`}
         >
           <div>
             <h3 className="text-gray-500 text-sm font-medium">New Customers</h3>

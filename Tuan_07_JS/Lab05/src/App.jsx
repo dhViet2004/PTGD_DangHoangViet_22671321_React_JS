@@ -25,11 +25,14 @@ function App() {
           <div className="flex-1 md:col-span-4 flex flex-col">
             <main className="flex-1 p-4 overflow-auto">
               <div className="min-h-[calc(100vh-12rem)]">
-                <Routes>    
+                <Routes>
+                  
                   <Route path="/" element={<Dashboard />}>
                     <Route index element={<Overview />} />
                     <Route path="overview" element={<Overview />} />
-   
+                    <Route path="turnover" element={<Overview />} />
+                    <Route path="profit" element={<Overview />} />
+                    <Route path="customers" element={<Overview />} />
                   </Route>
                 </Routes>
               </div>

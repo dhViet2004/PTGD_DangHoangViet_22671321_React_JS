@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Modal from './Modal';
 import { useData } from '../components/DataContext';
 
 const DataTable = ({
@@ -11,12 +10,8 @@ const DataTable = ({
   excludeFields = ['avatar'],
   nameField = 'name'
 }) => {
-  const { tableData, tableTitle, updateData, fetchStats, activeFilter } = useData(); // Thêm activeFilter
+  const { tableData, tableTitle, fetchStats, activeFilter } = useData(); // Thêm activeFilter
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
-  const [newCustomer, setNewCustomer] = useState({});
   // Fetch dữ liệu nếu tableData rỗng
   useEffect(() => {
     if (!tableData || tableData.length === 0) {
@@ -24,7 +19,7 @@ const DataTable = ({
     }
   }, [tableData, fetchStats]);
 
-  // Sử dụng useMemo để tính toán currentItems
+ 
   const currentItems = useMemo(() => {
     if (!tableData || tableData.length === 0) {
       return [];
@@ -34,12 +29,12 @@ const DataTable = ({
     return tableData.slice(indexOfFirstItem, indexOfLastItem);
   }, [tableData, currentPage, itemsPerPage]);
 
-  // Tính totalPages dựa trên tableData
+  
   const totalPages = useMemo(() => {
     return tableData && tableData.length > 0 ? Math.ceil(tableData.length / itemsPerPage) : 0;
   }, [tableData, itemsPerPage]);
 
-  // Kiểm tra điều kiện trả về sớm
+ 
   if (!tableData || tableData.length === 0) {
     return <div className="p-4">No data available</div>;
   }
@@ -137,110 +132,12 @@ const DataTable = ({
       .replace(/^./, str => str.toUpperCase())
       .trim();
   };
-
-  const handleEditClick = (item) => {
-    setSelectedItem(item);
-    setIsModalOpen(true);
-  };
-
-  const handleExport = () => {
-    console.log("Export functionality to be implemented");
-  };
-
-  const handleChange = (e) => {
-    setSelectedItem({
-      ...selectedItem,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSave = async (updatedUser) => {
-    try {
-      if (!updatedUser || !updatedUser.id) {
-        throw new Error('No user ID provided for update');
-      }
-
-      const payload = { ...updatedUser };
-      if (payload.avatar && payload.avatar.startsWith('http://localhost:3001')) {
-        payload.avatar = payload.avatar.replace('http://localhost:3001', '');
-      }
-      console.log('Payload gửi đi:', payload);
-
-      const response = await fetch(`http://localhost:3001/customers/${updatedUser.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to update user: ${errorText}`);
-      }
-
-      const updatedData = await response.json();
-      updateData(tableData.map(item => item.id === updatedData.id ? updatedData : item));
-      setIsModalOpen(false);
-      setSelectedItem(null);
-    } catch (error) {
-      console.error('Error saving user:', error);
-      alert('Failed to save user. Please try again.');
-    }
-  };
-  // Hàm xử lý khi nhấn nút Import
-  const handleImport = () => {
-    // Tạo một đối tượng khách hàng mới với các trường rỗng dựa trên cấu trúc của tableData
-    const emptyCustomer = Object.keys(tableData[0]).reduce((acc, key) => {
-      if (key !== 'id') { // Không bao gồm id vì server sẽ tự tạo
-        acc[key] = '';
-      }
-      return acc;
-    }, {});
-    setNewCustomer(emptyCustomer);
-    setIsImportModalOpen(true); // Mở modal import
-  };
-
-  // Hàm xử lý thay đổi dữ liệu trong modal import
-  const handleImportChange = (e) => {
-    setNewCustomer({
-      ...newCustomer,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // Hàm lưu khách hàng mới
-  const handleImportSave = async (newUser) => {
-    try {
-      const response = await fetch('http://localhost:3001/customers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Không thể tạo khách hàng mới: ${errorText}`);
-      }
-
-      const createdUser = await response.json();
-      updateData([...tableData, createdUser]); // Thêm khách hàng mới vào bảng
-      setIsImportModalOpen(false); // Đóng modal
-      setNewCustomer({}); // Xóa dữ liệu tạm
-    } catch (error) {
-      console.error('Lỗi khi nhập khách hàng:', error);
-      alert('Không thể nhập khách hàng. Vui lòng thử lại.');
-    }
-  };
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">{tableTitle}</h1>
         <div className="flex space-x-4">
           <button
-            onClick={handleImport}
             className="border border-pink-400 text-pink-400 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-pink-100 cursor-pointer transition-colors duration-200"
           >
             <img
@@ -251,7 +148,6 @@ const DataTable = ({
             <span>Import</span>
           </button>
           <button
-            onClick={handleExport}
             className="border border-pink-400 text-pink-400 flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-pink-100 cursor-pointer transition-colors duration-200"
           >
             <img
@@ -301,7 +197,6 @@ const DataTable = ({
                 {activeFilter === 'customers' && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
-                      onClick={() => handleEditClick(item)}
                       className="cursor-pointer"
                     >
                       <img src="http://localhost:3001/images/create.png" alt="Edit" />
@@ -347,26 +242,6 @@ const DataTable = ({
             </button>
           </div>
         </div>
-      )}
-
-      {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSave={handleSave}
-          user={selectedItem}
-          onChange={handleChange}
-        />
-      )}
-      {isImportModalOpen && (
-        <Modal 
-          isOpen={isImportModalOpen} 
-          onClose={() => setIsImportModalOpen(false)} 
-          onSave={handleImportSave} 
-          user={newCustomer} 
-          onChange={handleImportChange}
-          title="Thêm khách hàng mới" // Tiêu đề tùy chỉnh cho modal import
-        />
       )}
     </div>
   );
