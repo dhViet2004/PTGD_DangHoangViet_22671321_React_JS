@@ -4,6 +4,9 @@ import Menu from './components/Menu';
 import Overview from './components/Overview';
 import Dashboard from './pages/Dashboard';
 import { DataProvider } from './components/DataContext'; // Import DataProvider
+import Project from './pages/Project';
+import Analytics from './pages/Analytics';
+import Team from './pages/Team';
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
                     <Route path="profit" element={<Overview />} />
                     <Route path="customers" element={<Overview />} />
                   </Route>
+                  <Route path='/Project' element={<Project/>}/>
+                  <Route path='/Team' element={<Team/>}/>
+                  <Route path='/Analytics' element={<Analytics/>}/>
                 </Routes>
               </div>
             </main>

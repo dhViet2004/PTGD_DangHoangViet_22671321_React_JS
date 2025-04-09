@@ -472,6 +472,24 @@
       "status": "New",
       "avatar": "/images/Avatar.png",
       "id": 22
+    },
+    {
+      "name": "Đặng Hoàng Việt",
+      "company": "VinaGame",
+      "orderValue": "500",
+      "orderDate": "2024-07-31",
+      "status": "New",
+      "avatar": "/images/Avatar.png",
+      "id": 23
+    },
+    {
+      "name": "Đặng Hoàng Việt",
+      "company": "VinaGame",
+      "orderValue": "356",
+      "orderDate": "2024-07-31",
+      "status": "New",
+      "avatar": "/images/Avatar.png",
+      "id": 24
     }
   ]
 }
