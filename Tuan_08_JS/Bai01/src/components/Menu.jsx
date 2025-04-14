@@ -14,7 +14,7 @@ const Menu = () => {
     { title: 'Salad with cabbage and shrimp', img: '/images/salad-cabbage.jpg' },
     { title: 'Stuffed glove beans, shrimp and potatoes', img: '/images/stuffed-glove.jpg' },
     { title: 'Sunny side up fried egg', img: '/images/sunny-egg.jpg' },
-    { title: 'Lotus delight salad', img: '/images/lotus-salad.jpg' },
+    { title: 'Lotus delight salad', img: '/images/lotus-salad-delight.jpg' },
   ];
 
   const editorPicks = [
