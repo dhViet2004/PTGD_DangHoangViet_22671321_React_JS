@@ -1,14 +1,12 @@
 import { BrowserRouter, Routes , Route } from 'react-router-dom'
 import './App.css'
-import ChefffyHeader from './components/CheffiyNavbar'
+import Home from './pages/Home'
 
 function App() {
   return (
     <BrowserRouter>
-      <ChefffyHeader />
       <Routes>
-        <Route path='/' />
-
+        <Route path='/' element={<Home/>}/>
       </Routes>
     </BrowserRouter>
   )
