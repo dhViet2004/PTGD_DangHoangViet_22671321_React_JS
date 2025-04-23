@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FaTrash, FaExclamationCircle } from 'react-icons/fa';
 import { useProductContext } from '../context/ProductContext';
+import CategoryBadge from './CategoryBadge';
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, showNotification }) => {
   const { deleteProduct } = useProductContext();
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -21,25 +22,30 @@ const ProductItem = ({ product }) => {
 
   const handleConfirmDelete = () => {
     setIsDeleting(true);
+    
+    // Hiển thị thông báo xóa
+    showNotification('delete', `Đã xóa sản phẩm "${product.name}"`);
+    
     setTimeout(() => {
       deleteProduct(product.id);
     }, 300);
   };
 
   return (
-    <div className={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 ${
+    <div className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 ${
       isDeleting ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
     }`}>
+      {/* ProductItem content... (giữ nguyên như trước) */}
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
-        <div className="mt-2 space-y-1">
+        <div className="mt-2 space-y-2">
           <p className="text-xl font-bold text-indigo-600">{formatPrice(product.price)}</p>
-          <p className="text-sm">
-            <span className="font-medium">Danh mục:</span> 
-            <span className="ml-1 px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">
-              {product.category}
-            </span>
-          </p>
+          
+          <div className="flex flex-wrap items-center">
+            <span className="text-sm font-medium text-gray-600 mr-2">Danh mục:</span>
+            <CategoryBadge category={product.category} />
+          </div>
+          
           <p className="text-sm">
             <span className="font-medium">Tồn kho:</span> 
             <span className={`ml-1 ${product.stock < 10 ? 'text-red-600' : 'text-green-600'}`}>

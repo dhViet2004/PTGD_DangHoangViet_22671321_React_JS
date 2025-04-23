@@ -3,7 +3,7 @@ import { FaPlus } from 'react-icons/fa';
 import { useProductContext } from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
 
-const ProductForm = () => {
+const ProductForm = ({ showNotification }) => {
   const { addProduct, categories } = useProductContext();
   const navigate = useNavigate();
   const [productData, setProductData] = useState({
@@ -37,13 +37,18 @@ const ProductForm = () => {
     
     if (!validate()) return;
     
-    addProduct({
+    const newProduct = {
       ...productData,
       price: Number(productData.price),
       stock: Number(productData.stock),
-    });
+    };
     
-    // Sau khi thêm sản phẩm, chuyển về trang danh sách
+    addProduct(newProduct);
+    
+    // Hiển thị thông báo thành công
+    showNotification('success', `Đã thêm sản phẩm "${newProduct.name}"`);
+    
+    // Chuyển về trang danh sách
     navigate('/');
   };
 
@@ -59,7 +64,8 @@ const ProductForm = () => {
     <div className="bg-white shadow-md rounded-lg p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Thêm Sản Phẩm Mới</h2>
       <form onSubmit={handleSubmit}>
-        {/* Tên sản phẩm */}
+        {/* Form fields... (giữ nguyên như trước) */}
+        {/* ... */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="name">
             Tên sản phẩm
@@ -78,7 +84,6 @@ const ProductForm = () => {
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
         </div>
 
-        {/* Giá sản phẩm */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="price">
             Giá sản phẩm (VNĐ)
@@ -97,7 +102,6 @@ const ProductForm = () => {
           {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
         </div>
 
-        {/* Danh mục */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="category">
             Danh mục
@@ -136,7 +140,6 @@ const ProductForm = () => {
           {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
         </div>
 
-        {/* Tồn kho */}
         <div className="mb-6">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="stock">
             Tồn kho
@@ -155,7 +158,6 @@ const ProductForm = () => {
           {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
         </div>
 
-        {/* Nút thêm sản phẩm */}
         <div className="flex justify-center">
           <button
             type="submit"

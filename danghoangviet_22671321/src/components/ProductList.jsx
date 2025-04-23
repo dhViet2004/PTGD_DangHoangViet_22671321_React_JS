@@ -3,7 +3,7 @@ import ProductItem from './ProductItem';
 import { useProductContext } from '../context/ProductContext';
 import { FaExclamationTriangle } from 'react-icons/fa';
 
-const ProductList = () => {
+const ProductList = ({ showNotification }) => {
   const { filteredProducts } = useProductContext();
 
   if (filteredProducts.length === 0) {
@@ -18,7 +18,11 @@ const ProductList = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {filteredProducts.map((product) => (
-        <ProductItem key={product.id} product={product} />
+        <ProductItem 
+          key={product.id} 
+          product={product} 
+          showNotification={showNotification} 
+        />
       ))}
     </div>
   );
