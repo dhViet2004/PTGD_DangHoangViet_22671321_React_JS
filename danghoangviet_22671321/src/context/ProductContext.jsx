@@ -64,6 +64,7 @@ export const ProductProvider = ({ children }) => {
     dispatch({ type: 'SET_CATEGORY_FILTER', payload: category });
   };
 
+  // Lọc sản phẩm theo tên (không phân biệt hoa thường) và danh mục
   const filteredProducts = state.products
     .filter(product => 
       product.name.toLowerCase().includes(state.searchTerm.toLowerCase())
