@@ -11,7 +11,6 @@ const initialState = {
     { id: 5, name: 'Váy liền thân dáng suông', price: 450000, category: 'Thời trang', stock: 30 },
     { id: 6, name: 'Nồi cơm điện đa năng', price: 1200000, category: 'Gia dụng', stock: 20 },
     { id: 7, name: 'Máy hút bụi không dây', price: 2500000, category: 'Gia dụng', stock: 10 },
-    { id: 8, name: 'Sách kỹ năng sống', price: 120000, category: 'Sách & Văn phòng phẩm', stock: 45 },
   ],
   searchTerm: '',
   categoryFilter: 'Tất cả',
@@ -78,6 +77,14 @@ export const ProductProvider = ({ children }) => {
 
   // Lấy tất cả các danh mục từ danh sách sản phẩm và thêm "Tất cả" vào đầu
   const categories = ['Tất cả', ...new Set(state.products.map(product => product.category))];
+  
+  // Tính toán tổng số sản phẩm và tổng tồn kho
+  const totalProducts = state.products.length;
+  const totalStock = state.products.reduce((total, product) => total + product.stock, 0);
+
+  // Tính toán tổng số lượng và tồn kho cho sản phẩm đã lọc
+  const filteredTotalProducts = filteredProducts.length;
+  const filteredTotalStock = filteredProducts.reduce((total, product) => total + product.stock, 0);
 
   return (
     <ProductContext.Provider
@@ -90,7 +97,11 @@ export const ProductProvider = ({ children }) => {
         addProduct,
         deleteProduct,
         setSearchTerm,
-        setCategoryFilter
+        setCategoryFilter,
+        totalProducts,
+        totalStock,
+        filteredTotalProducts,
+        filteredTotalStock
       }}
     >
       {children}

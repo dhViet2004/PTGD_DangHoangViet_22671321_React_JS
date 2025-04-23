@@ -1,11 +1,12 @@
 import React from 'react';
 import SearchFilter from '../components/SearchFilter';
 import ProductList from '../components/ProductList';
+import StatsBar from '../components/StatsBar';
 import { useProductContext } from '../context/ProductContext';
-import { FaBoxOpen, FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 const Dashboard = () => {
-  const { products, filteredProducts, searchTerm, categoryFilter } = useProductContext();
+  const { filteredProducts, searchTerm, categoryFilter } = useProductContext();
 
   // Tạo tiêu đề hiển thị phù hợp dựa vào bộ lọc hiện tại
   let filteredTitle = "Danh Sách Sản Phẩm";
@@ -16,24 +17,11 @@ const Dashboard = () => {
     filteredTitle = `Kết Quả Tìm Kiếm${categoryFilter !== 'Tất cả' ? ` - ${categoryFilter}` : ''}`;
   }
 
-  // Hiển thị số lượng sản phẩm
-  const productCount = filteredProducts.length;
-  const totalCount = products.length;
-  const isFiltered = searchTerm || categoryFilter !== 'Tất cả';
-
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">{filteredTitle}</h1>
-        <div className="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full flex items-center">
-          <FaBoxOpen className="mr-2" />
-          <span className="font-medium">
-            {isFiltered 
-              ? `${productCount} kết quả${productCount !== totalCount ? ` / ${totalCount} sản phẩm` : ''}` 
-              : `${totalCount} sản phẩm`}
-          </span>
-        </div>
-      </div>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">{filteredTitle}</h1>
+      
+      <StatsBar />
       
       <SearchFilter />
       
