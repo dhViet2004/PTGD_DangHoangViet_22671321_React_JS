@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaSave, FaTimes } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import { useProductContext } from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ const ProductForm = () => {
   });
   const [errors, setErrors] = useState({});
 
+  // Lọc ra các danh mục duy nhất, loại bỏ "Tất cả" từ bộ lọc
   const uniqueCategories = categories.filter(cat => cat !== 'Tất cả');
 
   const validate = () => {
@@ -42,6 +43,7 @@ const ProductForm = () => {
       stock: Number(productData.stock),
     });
     
+    // Sau khi thêm sản phẩm, chuyển về trang danh sách
     navigate('/');
   };
 
@@ -57,6 +59,7 @@ const ProductForm = () => {
     <div className="bg-white shadow-md rounded-lg p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Thêm Sản Phẩm Mới</h2>
       <form onSubmit={handleSubmit}>
+        {/* Tên sản phẩm */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="name">
             Tên sản phẩm
@@ -67,6 +70,7 @@ const ProductForm = () => {
             name="name"
             value={productData.name}
             onChange={handleChange}
+            placeholder="Nhập tên sản phẩm"
             className={`w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
               errors.name ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -74,6 +78,7 @@ const ProductForm = () => {
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
         </div>
 
+        {/* Giá sản phẩm */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="price">
             Giá sản phẩm (VNĐ)
@@ -84,6 +89,7 @@ const ProductForm = () => {
             name="price"
             value={productData.price}
             onChange={handleChange}
+            placeholder="Nhập giá sản phẩm"
             className={`w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
               errors.price ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -91,6 +97,7 @@ const ProductForm = () => {
           {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
         </div>
 
+        {/* Danh mục */}
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="category">
             Danh mục
@@ -129,6 +136,7 @@ const ProductForm = () => {
           {errors.category && <p className="text-red-500 text-sm mt-1">{errors.category}</p>}
         </div>
 
+        {/* Tồn kho */}
         <div className="mb-6">
           <label className="block text-gray-700 font-medium mb-2" htmlFor="stock">
             Tồn kho
@@ -139,6 +147,7 @@ const ProductForm = () => {
             name="stock"
             value={productData.stock}
             onChange={handleChange}
+            placeholder="Nhập số lượng tồn kho"
             className={`w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
               errors.stock ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -146,21 +155,14 @@ const ProductForm = () => {
           {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
         </div>
 
-        <div className="flex items-center justify-end space-x-4">
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="px-4 py-2 flex items-center space-x-1 border border-gray-300 text-gray-700 rounded hover:bg-gray-100"
-          >
-            <FaTimes />
-            <span>Huỷ</span>
-          </button>
+        {/* Nút thêm sản phẩm */}
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="px-4 py-2 flex items-center space-x-1 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+            className="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
           >
-            <FaSave />
-            <span>Lưu sản phẩm</span>
+            <FaPlus />
+            <span>Thêm Sản Phẩm</span>
           </button>
         </div>
       </form>
